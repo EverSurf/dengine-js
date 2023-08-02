@@ -1,0 +1,40 @@
+{
+  "name": "@eversurf/dengine",
+  "version": "0.1.0",
+  "description": "TON Client for Java Script",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/EverSurf/dengine-js.git"
+  },
+  "scripts": {
+    "prepublishOnly": "npm i && node before-compile.js && tsc",
+    "build": "node before-compile.js && tsc"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "EverSurf",
+    "Client",
+    "debot",
+    "dengine"
+  ],
+  "author": "Ever Surf",
+  "license": "Apache-2.0",
+  "licenses": [
+    {
+      "type": "Apache-2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  ],
+  "engines": {
+    "node": ">=6"
+  },
+  "devDependencies": {
+    "none": "^1.0.0",
+    "typedoc": "^0.22.11",
+    "typescript": "^4.0.3"
+  }
+}
