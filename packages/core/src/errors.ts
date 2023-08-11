@@ -1,4 +1,4 @@
-export class TonClientError extends Error {
+export class DebotClientError extends Error {
     code: number;
     data?: any;
     

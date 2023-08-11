@@ -12,6 +12,6 @@
 */
 
 extern crate libc;
-extern crate ton_client;
+extern crate dengine;
 
-pub use ton_client::{tc_create_context, tc_destroy_context, tc_request, tc_request_sync};
+pub use dengine::{tc_create_dengine_context, tc_destroy_dengine_context, tc_dengine_request, tc_dengine_request_sync};

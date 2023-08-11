@@ -61,7 +61,7 @@ fn main() {
     exec("cargo", &["install", "wasm-pack", "--version", "0.9.1"]);
     assert!(exec("wasm-pack", &["build", "--release", "--target", "web"]).success());
     let pkg = lib_dir.join("pkg");
-    builder.add_package_file("eversdk.wasm", pkg.join("eversdk_bg.wasm"));
+    builder.add_package_file("dengine.wasm", pkg.join("dengine_bg.wasm"));
     let fixed_wrapper_script = fix_wrapper_script(builder.read_lib_file("pkg/eversdk.js"));
     let worker = template_replace(
         &builder.read_lib_file("worker-template.js"),

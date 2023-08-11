@@ -30,8 +30,8 @@ napi_value js_string_from_string_data(napi_env env, const tc_string_data_t ts) {
 }
 
 napi_value js_string_from_handle(napi_env env, const tc_string_handle_t* handle) {
-    auto js_response = js_string_from_string_data(env, tc_read_string(handle));
-    tc_destroy_string(handle);
+    auto js_response = js_string_from_string_data(env, tc_dengine_read_string(handle));
+    tc_dengine_destroy_string(handle);
     return js_response;
 }
 
@@ -103,7 +103,7 @@ struct response_t {
 
 // function(configJson: string): string
 napi_value getLibName(napi_env env, napi_callback_info info) {
-    return js_string(env, "lib-node");
+    return js_string(env, "dengine-node");
 }
 
 // function(configJson: string): string
@@ -117,7 +117,7 @@ napi_value createContext(napi_env env, napi_callback_info info) {
     } else {
         config = {nullptr, 0};
     }
-    auto response_handle = tc_create_context(config);
+    auto response_handle = tc_create_dengine_context(config);
     string_data_free(&config);
     return js_string_from_handle(env, response_handle);
 }
@@ -128,7 +128,7 @@ napi_value destroyContext(napi_env env, napi_callback_info info) {
     napi_value args[1];
     CHECK(napi_get_cb_info(env, info, &argc, args, nullptr, nullptr));
     if (argc > 0) {
-        tc_destroy_context(get_uint32(env, args[0]));
+        tc_destroy_dengine_context(get_uint32(env, args[0]));
     }
     return js_undefined(env);
 }
@@ -176,7 +176,7 @@ napi_value setResponseHandler(napi_env env, napi_callback_info info) {
                     args[0],// napi_value func,
                     nullptr, // napi_value async_resource,
                     js_string(env,
-                              "TON Client response handler"), // napi_value async_resource_name,
+                              "Dengine context response handler"), // napi_value async_resource_name,
                     0, // size_t max_queue_size,
                     1, // size_t initial_thread_count,
                     nullptr, // void* thread_finalize_data,
@@ -214,7 +214,7 @@ napi_value sendRequest(napi_env env, napi_callback_info info) {
         auto request_id = get_uint32(env, args[1]);
         auto function_name = string_data_from_js(env, args[2]);
         auto function_params_json = string_data_from_js(env, args[3]);
-        tc_request(context, function_name, function_params_json, request_id, core_response_handler);
+        tc_dengine_request(context, function_name, function_params_json, request_id, core_response_handler);
         string_data_free(&function_name);
         string_data_free(&function_params_json);
     }
@@ -230,7 +230,7 @@ napi_value requestSync(napi_env env, napi_callback_info info) {
         auto context = get_uint32(env, args[0]);
         auto function_name = string_data_from_js(env, args[1]);
         auto function_params_json = string_data_from_js(env, args[2]);
-        auto result = tc_request_sync(context, function_name, function_params_json);
+        auto result = tc_dengine_request_sync(context, function_name, function_params_json);
         string_data_free(&function_name);
         string_data_free(&function_params_json);
         return js_string_from_handle(env, result);

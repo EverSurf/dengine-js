@@ -23,20 +23,20 @@ import {
     ResponseHandler,
     useLibrary,
 } from "./bin";
-import { TonClientError } from "./errors";
+import { DebotClientError } from "./errors";
 import { packageVersion } from "./version";
 
-export class TonClient {
+export class DebotClient {
     private static _defaultConfig: ClientConfig = {};
-    private static _default: TonClient | null = null;
+    private static _default: DebotClient | null = null;
 
-    static set default(client: TonClient) {
+    static set default(client: DebotClient) {
         this._default = client;
     }
 
-    static get default(): TonClient {
+    static get default(): DebotClient {
         if (this._default === null) {
-            this._default = new TonClient(this._defaultConfig);
+            this._default = new DebotClient(this._defaultConfig);
         }
         return this._default;
     }
@@ -101,8 +101,8 @@ export class TonClient {
     async resolveError(
         functionName: string,
         params: any,
-        err: TonClientError,
-    ): Promise<TonClientError> {
+        err: DebotClientError,
+    ): Promise<DebotClientError> {
         if (err.code !== 23 || !(err.data?.suggest_use_helper_for)) {
             return err;
         }
@@ -112,8 +112,8 @@ export class TonClient {
     resolveErrorSync(
         functionName: string,
         params: any,
-        err: TonClientError,
-    ): TonClientError {
+        err: DebotClientError,
+    ): DebotClientError {
         if (err.code !== 23 || !(err.data?.suggest_use_helper_for)) {
             return err;
         }
@@ -124,8 +124,8 @@ export class TonClient {
         api: any,
         functionName: string,
         params: any,
-        err: TonClientError,
-    ): TonClientError {
+        err: DebotClientError,
+    ): DebotClientError {
         if (err.code !== 23 || !(err.data?.suggest_use_helper_for)) {
             return err;
         }
@@ -208,7 +208,7 @@ export class TonClient {
         return {
             ...this.config,
             binding: {
-                library: `ever-sdk-js (${libName})`,
+                library: `dengine-js (${libName})`,
                 version: packageVersion,
             },
         } as ClientConfig;
@@ -280,7 +280,7 @@ export class TonClient {
         try {
             return bridge.requestSync(context, functionName, functionParams);
         } catch (err) {
-            throw this.resolveErrorSync(functionName, functionParams, err as TonClientError);
+            throw this.resolveErrorSync(functionName, functionParams, err as DebotClientError);
         }
     }
 

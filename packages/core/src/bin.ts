@@ -1,4 +1,4 @@
-import { TonClientError } from "./errors";
+import { DebotClientError } from "./errors";
 import { ClientConfig } from "./modules";
 
 export type ResponseHandler = (params: any, responseType: number) => void;
@@ -127,7 +127,7 @@ let bridge: BinaryBridge | undefined = undefined;
 
 export function getBridge(): BinaryBridge {
     if (!bridge) {
-        throw new TonClientError(1, "TON Client binary bridge isn't set.");
+        throw new DebotClientError(1, "Dengine binary bridge isn't set.");
     }
     return bridge;
 }
@@ -296,7 +296,7 @@ export class BinaryBridge {
         }
         if (this.loading === undefined) {
             return Promise.reject(
-                new TonClientError(1, "TON Client binary library isn't set."),
+                new DebotClientError(1, "Dengine binary library isn't set."),
             );
         }
         return new Promise((resolve, reject) => {
@@ -312,7 +312,7 @@ export class BinaryBridge {
         if (library) {
             return library;
         }
-        throw new TonClientError(1, "TON Client binary library does not support sync calls.");
+        throw new DebotClientError(1, "Dengine binary library does not support sync calls.");
     }
 
     private generateRequestId(): number {
@@ -370,7 +370,7 @@ export class BinaryBridge {
             return undefined;
         }
         if ("error" in result) {
-            throw new TonClientError(
+            throw new DebotClientError(
                 result.error.code,
                 result.error.message,
                 result.error.data,
