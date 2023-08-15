@@ -37,7 +37,7 @@
   "dependencies": {
     "@babel/core": "^7.15.0",
     "@babel/runtime": "^7.15.0",
-    "@eversdk/core": "file:../core",
+    "@eversdk/core": "1.44.1",
     "big-integer": "^1.6.48",
     "expect": "26.6.2",
     "jest-circus": "22.1.4",

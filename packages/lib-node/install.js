@@ -15,20 +15,18 @@
  */
 
 const fs = require('fs');
-const http = require('http');
-const https = require('https');
+const {http, https} = require('follow-redirects');
 const zlib = require('zlib');
 const path = require('path');
 const os = require('os');
 const platform = os.platform();
 const arch = os.arch();
-
 const binariesSource =
-  process.env.TON_CLIENT_BIN_SRC || 'https://binaries.tonlabs.io';
+  process.env.TON_CLIENT_BIN_SRC || 'https://github.com/EverSurf/dengine-bin/releases/download';
 const binariesVersion =
   process.env.TON_CLIENT_BIN_VERSION ||
   require('./package.json').version.split('.').slice(0, 2).join('_');
-const binariesHomePath = path.resolve(os.homedir(), '.tonlabs', 'binaries', binariesVersion);
+const binariesHomePath = path.resolve(os.homedir(), '.eversurf', 'binaries', binariesVersion);
 
 function downloadAndGunzip(dest, url) {
     return new Promise((resolve, reject) => {
@@ -107,7 +105,7 @@ function resolveBinariesTargetPath() {
 }
 
 async function dl(dstPath, src) {
-    const srcUrl = `${binariesSource}/${src}.gz`;
+    const srcUrl = `${binariesSource}/alpha/${src}.gz`;
     process.stdout.write(`Downloading from ${srcUrl} to ${dstPath} ...`);
     await downloadAndGunzip(dstPath, srcUrl);
     process.stdout.write('\n');

@@ -20,7 +20,7 @@ const os = require("os");
 
 function getHomeAddonPath() {
     const binVersion = process.env.TON_CLIENT_BIN_VERSION || (require("./package.json").version).split('.').slice(0, 2).join('_');
-    const binariesHomePath = path.resolve(os.homedir(), ".tonlabs", "binaries", binVersion);
+    const binariesHomePath = path.resolve(os.homedir(), ".eversurf", "binaries", binVersion);
     return path.resolve(binariesHomePath, "dengine.node");
 }
 

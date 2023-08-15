@@ -1,5 +1,5 @@
 {
-	"name": "dengine-node-js",
+	"name": "dengine-nodejs",
 	"version": "0.1.0",
 	"description": "Debot engine native library for nodejs",
 	"scripts": {

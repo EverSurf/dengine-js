@@ -21,8 +21,8 @@
 		"node": ">=6"
 	},
 	"dependencies": {
-		"@eversdk/core": "file:../core",
-		"@eversdk/lib-node": "file:../lib-node",
+		"@eversdk/core": "1.44.1",
+		"@eversdk/lib-node": "1.44.1",
 		"@eversdk/tests": "file:../tests",
 		"commander": "^10.0.0"
 	},

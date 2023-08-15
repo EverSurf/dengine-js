@@ -1,6 +1,8 @@
 const { program } = require("commander");
 const { TonClient } = require("@eversdk/core");
 const { libNode } = require("@eversdk/lib-node");
+const { DebotClient } = require("@eversurf/dengine-js");
+const { libNode: dengineNode } = require("@eversurf/dengine-node");
 const {
     TestsLogger,
     TestsRunner,
@@ -12,6 +14,7 @@ TestsRunner.log = console.log;
 TestsRunner.exit = process.exit;
 
 TonClient.useBinaryLibrary(libNode);
+DebotClient.useBinaryLibrary(dengineNode);
 
 async function run(testNames) {
     let state = zeroRunningState;
