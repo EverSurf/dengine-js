@@ -38,6 +38,7 @@
     "@babel/core": "^7.15.0",
     "@babel/runtime": "^7.15.0",
     "@eversdk/core": "1.44.1",
+    "@eversurf/dengine-js": "file:../core",
     "big-integer": "^1.6.48",
     "expect": "26.6.2",
     "jest-circus": "22.1.4",
