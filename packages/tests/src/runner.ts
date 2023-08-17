@@ -70,6 +70,7 @@ export class TestsRunner {
         onStateChange: (state: TestsRunningState) => void,
         options?: TestRunnerOptions | TestRunnerLog,
     ) {
+        console.log('TestsRunner.run');
         const resolvedOptions: TestRunnerOptions =
             options === undefined
                 ? {}
@@ -92,6 +93,7 @@ export class TestsRunner {
         }
 
         const log = resolvedOptions.log ?? TestsRunner.log;
+        console.log(")_))))))))))))))))))))))))))))");
         try {
             jest.setTimeout(300000);
             const client = runner.getClient();
@@ -138,10 +140,12 @@ export class TestsRunner {
                     return e.toString().replace(/\n\s+at\s+.*/gi, "");
                 });
             });
+            console.log("Tests complete");
             log(`[TEST_COMPLETE] ${JSON.stringify(results)}`);
             state.finished = true;
             onStateChange(state);
         } catch (error) {
+            console.log("catch error", error);
             log(">>>", error);
         }
     }

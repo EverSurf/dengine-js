@@ -7,7 +7,6 @@ import {
     ParamsOfAppDebotBrowserLogVariant,
     ParamsOfAppDebotBrowserSendVariant,
     ResultOfAppDebotBrowserApproveVariant,
-    resultOfAppDebotBrowserGetSigningBox, 
     SigningBoxHandle
 } from '@eversurf/dengine-js';
 import {TonClient, KeyPair} from '@eversdk/core';
@@ -166,7 +165,7 @@ export class DebotBrowser implements AppDebotBrowser {
     };
 
     private async init(address: string): Promise<void> {
-        const { info, debot_handle, debot_abi } = await this.dengine.debot.init(
+        const { info, debot_handle } = await this.dengine.debot.init(
             { address: address },
             this.handlers,
         );
@@ -209,7 +208,7 @@ export class DebotBrowser implements AppDebotBrowser {
     };
 
     async get_signing_box(): Promise<ResultOfAppDebotBrowserGetSigningBoxVariant> {
-        return { signing_box: this.signBox };
+        return { signing_box: this.signBox ?? 0 };
     }
 
     send(params: ParamsOfAppDebotBrowserSendVariant): void {
@@ -217,6 +216,7 @@ export class DebotBrowser implements AppDebotBrowser {
     }
 
     async approve(params: ParamsOfAppDebotBrowserApproveVariant): Promise<ResultOfAppDebotBrowserApproveVariant> {
+        params;
         return { approved: true};
     }
 

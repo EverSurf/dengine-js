@@ -27,7 +27,9 @@ export class Account {
     private cachedBocLt: string | null;
     private minExpectedLt: string;
 
-    // private cachedParsed: any | null;
+    get addr(): string {
+        return this.address ?? "0";
+    }
 
     constructor(
         client: TonClient,
