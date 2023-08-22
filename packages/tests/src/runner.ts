@@ -53,6 +53,10 @@ export class TestsRunner {
     this.client = client;
   }
 
+  get sdk(): TonClient {
+    return this.client;
+  }
+  
   public async run(
     onStateChange: (state: TestsRunningState) => void,
     options?: TestRunnerOptions | TestRunnerLog
@@ -82,7 +86,6 @@ export class TestsRunner {
     }
 
     const log = resolvedOptions.log ?? TestsRunner.log;
-    console.log(")_))))))))))))))))))))))))))))");
     try {
       jest.setTimeout(300000);
       const client = this.client;
@@ -135,7 +138,6 @@ export class TestsRunner {
           return e.toString().replace(/\n\s+at\s+.*/gi, "");
         });
       });
-      console.log("Tests complete");
       log(`[TEST_COMPLETE] ${JSON.stringify(results)}`);
       state.finished = true;
       onStateChange(state);
@@ -283,6 +285,17 @@ export class TestsRunner {
   }
 }
 
+var runner: TestsRunner | undefined = undefined;
+export const get_runner = (): TestsRunner => {
+    if (!runner) {
+        throw "Runner is not initialized";
+    }
+    return runner;
+}
+export const create_runner = (sdk: TonClient): TestsRunner => {
+    runner = new TestsRunner(sdk);
+    return runner;
+}
 export const ABIVersions = [1, 2];
 export type ABIVersion = 1 | 2;
 

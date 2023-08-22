@@ -2,11 +2,12 @@ const { program } = require("commander");
 const { TonClient } = require("@eversdk/core");
 const { libNode } = require("@eversdk/lib-node");
 const { DebotClient } = require("@eversurf/dengine-js");
-// const { libNode: dengineNode } = require("@eversurf/dengine-node");
+const { libNode: dengineNode } = require("@eversurf/dengine-node");
 const {
   TestsLogger,
   TestsRunner,
   zeroRunningState,
+  create_runner
 } = require("@eversdk/tests");
 
 TestsRunner.setTimeout = setTimeout;
@@ -14,7 +15,7 @@ TestsRunner.log = console.log;
 TestsRunner.exit = process.exit;
 
 TonClient.useBinaryLibrary(libNode);
-// DebotClient.useBinaryLibrary(dengineNode);
+DebotClient.useBinaryLibrary(dengineNode);
 
 function resolveConfig() {
   return {
@@ -32,9 +33,7 @@ function resolveConfig() {
 async function run(testNames) {
   let state = zeroRunningState;
   const logger = new TestsLogger();
-
-  const client = new TonClient(resolveConfig());
-  const runner = new TestsRunner(client);
+  const runner = create_runner(new TonClient(resolveConfig()));
 
   await runner.run((x) => (state = { ...x }), {
     log: (...args) => {

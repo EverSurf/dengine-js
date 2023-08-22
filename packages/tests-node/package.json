@@ -25,6 +25,7 @@
     "@eversdk/lib-node": "1.44.1",
     "@eversdk/tests": "file:../tests",
     "@eversurf/dengine-js": "file:../core",
+    "@eversurf/dengine-node": "file:../lib-node",
     "commander": "^10.0.0"
   },
   "devDependencies": {

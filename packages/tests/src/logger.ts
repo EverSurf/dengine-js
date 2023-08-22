@@ -57,6 +57,8 @@ export class TestsLogger {
             TestsRunner.log(`failure: ${this.failure}`);
             TestsRunner.log(`finished in ${process.uptime().toFixed(2)}s`);
             TestsRunner.exit(this.failure > 0 ? 1 : 0);
+            return;
         }
+        TestsRunner.log(line);
     }
 }
