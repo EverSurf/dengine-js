@@ -9,10 +9,12 @@ const {
   zeroRunningState,
   create_runner
 } = require("@eversdk/tests");
+const {fetch} = require("node-fetch");
 
 TestsRunner.setTimeout = setTimeout;
 TestsRunner.log = console.log;
 TestsRunner.exit = process.exit;
+TestsRunner.fetch = fetch;
 
 TonClient.useBinaryLibrary(libNode);
 DebotClient.useBinaryLibrary(dengineNode);

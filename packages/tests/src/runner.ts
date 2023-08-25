@@ -43,6 +43,7 @@ export class TestsRunner {
   static setTimeout: (f: () => void, ms: number) => void = () => {};
   static log: (...args: any[]) => void = (..._args: any[]) => {};
   static exit: (code: number) => void = (_code) => {};
+  static fetch: (...args: any[]) => Promise<any> = async (..._args: any[]) => {};
 
   private client: TonClient;
 
@@ -56,7 +57,7 @@ export class TestsRunner {
   get sdk(): TonClient {
     return this.client;
   }
-  
+
   public async run(
     onStateChange: (state: TestsRunningState) => void,
     options?: TestRunnerOptions | TestRunnerLog
