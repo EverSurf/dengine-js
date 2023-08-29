@@ -1,5 +1,5 @@
 import { DebotClient } from "@eversurf/dengine-js";
-import { test } from "../jest";
+import { test, expect } from "../jest";
 import { TestsRunner, get_runner } from "../runner";
 import { contracts } from "../contracts";
 import { Account } from "../account";
@@ -28,7 +28,7 @@ const deploy_debot = async (
       call_set: {
         function_name: "setABI",
         input: {
-          dabi: debot.abi.toString(),
+          dabi: JSON.stringify(debot.abi.value),
         },
       },
       signer: debot.signer,
@@ -48,5 +48,5 @@ test("Debot module import", async () => {
   const userKey = await sdk.crypto.generate_random_sign_keys();
   const browser = new DebotBrowser({ sdk, dengine, userKey });
   const outputs = await browser.start(debots[1].addr);
-  console.log(outputs);
+  expect(outputs).toStrictEqual(["Started"]);
 });

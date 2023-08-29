@@ -33,6 +33,7 @@ import {
   ResultOfAppDebotBrowserQueryTransactionTreeVariant,
   ResultOfAppDebotBrowserWaitForCollectionVariant,
   ResultOfAppDebotBrowserWaitForTransactionVariant,
+  LogLevel,
 } from "@eversurf/dengine-js";
 import { TonClient, KeyPair } from "@eversdk/core";
 import { TerminalABI } from "./abi_2.2";
@@ -115,7 +116,7 @@ export class DebotBrowser implements AppDebotBrowser {
   private sdk: TonClient;
   private dengine: DebotClient;
   private handlers: AppDebotBrowser;
-  private mainDebot?: string;
+  private mainDebotAddress?: string;
   private outputs: string[] = [];
   private userKey: KeyPair;
   private signBox?: SigningBoxHandle;
@@ -139,7 +140,7 @@ export class DebotBrowser implements AppDebotBrowser {
     this.userKey = userKey;
     this.interfaces.set(
       TerminalId,
-      new Terminal(this.sdk, (msg: string) => this.outputs.push(msg))
+      new Terminal(this.sdk, (msg: string) => { this.outputs.push(msg) })
     );
   }
 
@@ -149,8 +150,8 @@ export class DebotBrowser implements AppDebotBrowser {
       this.signBox = handle;
     }
     await this.remove();
-    await this.init(address);
-    this.mainDebot = address;
+    await this.initDebot(address);
+    await this.startDebot(address);
 
     var nextMsg = this.msgQueue.shift();
     while (nextMsg) {
@@ -181,7 +182,7 @@ export class DebotBrowser implements AppDebotBrowser {
         // invoking
         var invokee = this.debots.get(parsed.dst);
         if (!invokee) {
-          await this.init(parsed.dst);
+          await this.initDebot(parsed.dst);
           invokee = this.debots.get(parsed.dst);
         }
         if (invokee) {
@@ -198,7 +199,7 @@ export class DebotBrowser implements AppDebotBrowser {
     return this.outputs;
   };
 
-  private async init(address: string): Promise<void> {
+  private async initDebot(address: string): Promise<void> {
     const { info, debot_handle } = await this.dengine.debot.init(
       { address: address },
       this.handlers
@@ -210,13 +211,23 @@ export class DebotBrowser implements AppDebotBrowser {
     });
   }
 
+  async startDebot(address: string) {
+    this.mainDebotAddress = address;
+    const mainDebotEntry = this.debots.get(this.mainDebotAddress);
+    if (mainDebotEntry) {
+      await this.dengine.debot.start({
+        debot_handle: mainDebotEntry.handle,
+      });
+    }
+  }
+
   private remove = async (): Promise<void> => {
-    if (this.mainDebot) {
-      const entry = this.debots.get(this.mainDebot);
+    if (this.mainDebotAddress) {
+      const entry = this.debots.get(this.mainDebotAddress);
       if (entry) {
         await this.dengine.debot.remove({ debot_handle: entry.handle });
       }
-      this.mainDebot = undefined;
+      this.mainDebotAddress = undefined;
     }
   };
 
@@ -227,30 +238,17 @@ export class DebotBrowser implements AppDebotBrowser {
     return parsed;
   };
 
-  /// Interface Impl
   private createHandlers = (): AppDebotBrowser => {
-    return {
-      log: this.log,
-      get_signing_box: this.get_signing_box,
-      send: this.send,
-      approve: this.approve,
-      fetch: this.fetch,
-      encrypt: this.encrypt,
-      decrypt: this.decrypt,
-      sign: this.sign,
-      send_message: this.send_message,
-      query: this.query,
-      query_collection: this.query_collection,
-      wait_for_collection: this.wait_for_collection,
-      wait_for_transaction: this.wait_for_transaction,
-      get_encryption_box_info: this.get_encryption_box_info,
-      get_signing_box_info: this.get_signing_box_info,
-      query_transaction_tree: this.query_transaction_tree
+      return this;
     };
-  };
-
+    
+  /// Interface Impl
   log(params: ParamsOfAppDebotBrowserLogVariant): void {
-    this.outputs.push(`[DEBOT]  ${params.msg}`);
+    if (params.level === LogLevel.User) {
+        this.outputs.push(params.msg);
+    } else {
+        console.log(`[${params.level}] ${params.msg}`);
+    }
   }
 
   async get_signing_box(): Promise<ResultOfAppDebotBrowserGetSigningBoxVariant> {

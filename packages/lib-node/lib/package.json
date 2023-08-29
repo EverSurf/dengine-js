@@ -1,6 +1,6 @@
 {
 	"name": "dengine-nodejs",
-	"version": "0.1.0",
+	"version": "0.3.0",
 	"description": "Debot engine native library for nodejs",
 	"scripts": {
 		"build": "node-gyp rebuild"

@@ -1020,6 +1020,14 @@ export type FunctionHeader = {
     pubkey?: string
 }
 
+export enum LogLevel {
+    User = "User",
+    Error = "Error",
+    Warn = "Warn",
+    Debug = "Debug",
+    Trace = "Trace"
+}
+
 /**
  * Parameters to init DeBot.
  */
@@ -1056,6 +1064,8 @@ export type RegisteredDebot = {
  * Print message to user.
  */
 export type ParamsOfAppDebotBrowserLogVariant = {
+
+    level: LogLevel,
 
     /**
      * A string that must be printed to user.
@@ -1265,9 +1275,10 @@ export type ParamsOfAppDebotBrowser = ({
     type: 'GetEncryptionBoxInfo'
 } & ParamsOfAppDebotBrowserGetEncryptionBoxInfoVariant)
 
-export function paramsOfAppDebotBrowserLog(msg: string): ParamsOfAppDebotBrowser {
+export function paramsOfAppDebotBrowserLog(level: LogLevel, msg: string): ParamsOfAppDebotBrowser {
     return {
         type: 'Log',
+        level,
         msg,
     };
 }
@@ -1838,12 +1849,8 @@ export class DebotModule {
      *  Starts the DeBot.
      * 
      * @remarks
-     * Downloads debot smart contract from blockchain and switches it to
-     * context zero.
-     * 
      * This function must be used by Debot Browser to start a dialog with debot.
-     * While the function is executing, several Browser Callbacks can be called,
-     * since the debot tries to display all actions from the context 0 to the user.
+     * While the function is executing, several Browser Callbacks can be called.
      * 
      * When the debot starts SDK registers `BrowserCallbacks` AppObject.
      * Therefore when `debote.remove` is called the debot is being deleted and the callback is called
@@ -1860,12 +1867,8 @@ export class DebotModule {
      *  Starts the DeBot.
      * 
      * @remarks
-     * Downloads debot smart contract from blockchain and switches it to
-     * context zero.
-     * 
      * This function must be used by Debot Browser to start a dialog with debot.
-     * While the function is executing, several Browser Callbacks can be called,
-     * since the debot tries to display all actions from the context 0 to the user.
+     * While the function is executing, several Browser Callbacks can be called.
      * 
      * When the debot starts SDK registers `BrowserCallbacks` AppObject.
      * Therefore when `debote.remove` is called the debot is being deleted and the callback is called
