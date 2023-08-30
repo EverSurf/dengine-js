@@ -38,10 +38,6 @@ const deploy_debot = async (
   return debot;
 };
 
-//beforeAll(async () => {
-//  debots[1] = await deploy_debot(get_runner(), "debot1");
-//});
-
 test("Debot module import", async () => {
   const sdk = get_runner().sdk;
   debots[1] = await deploy_debot(get_runner(), "debot1");
