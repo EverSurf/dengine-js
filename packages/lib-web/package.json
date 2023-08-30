@@ -1,7 +1,7 @@
 {
-	"name": "@eversdk/lib-web",
-	"version": "1.44.1",
-	"description": "TON Client WASM module for browsers",
+	"name": "@eversurf/lib-web",
+	"version": "0.3.0",
+	"description": "WASM Dengine for web",
 	"main": "index.js",
 	"scripts": {
 		"postinstall": "node install.js"
@@ -10,13 +10,12 @@
 		"access": "public"
 	},
 	"keywords": [
-		"TON",
-		"Client",
-		"FreeTON",
-		"TONOS",
-		"SDK"
+		"Everscale",
+		"Debot",
+		"Dengine",
+		"WASM"
 	],
-	"author": "TON Labs LTD.",
+	"author": "Ever Surf",
 	"license": "Apache-2.0",
 	"licenses": [
 		{
@@ -24,7 +23,6 @@
 			"url": "http://www.apache.org/licenses/LICENSE-2.0"
 		}
 	],
-	"homepage": "https://docs.ton.dev/",
 	"engines": {
 		"node": ">=6"
 	}

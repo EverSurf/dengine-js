@@ -41,7 +41,7 @@ async function loadModule() {
     if (options && options.loadModule) {
         wasmModule = await options.loadModule;
     } else {
-        const fetched = fetch((options && options.binaryURL) || "/eversdk.wasm");
+        const fetched = fetch((options && options.binaryURL) || "/dengineweb.wasm");
         if (WebAssembly.compileStreaming) {
             debugLog("compileStreaming binary");
             return await WebAssembly.compileStreaming(fetched);
