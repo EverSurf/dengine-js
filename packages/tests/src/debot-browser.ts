@@ -37,7 +37,6 @@ import {
 } from "@eversurf/dengine-js";
 import { TonClient, KeyPair } from "@eversdk/core";
 import { TerminalABI } from "./abi_2.2";
-import { stdin } from "process";
 import { TestsRunner, get_runner } from "./runner";
 
 export type DebotEntry = {
@@ -107,7 +106,6 @@ class Terminal implements DebotInterface {
   }
   private async input(prompt: string): Promise<any> {
     this.log(prompt);
-    stdin.read();
     return { value: "string" };
   }
 }

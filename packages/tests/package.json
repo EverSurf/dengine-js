@@ -1,5 +1,5 @@
 {
-  "name": "@eversdk/tests",
+  "name": "@eversurf/tests",
   "version": "1.44.1",
   "private": true,
   "description": "TON Client Tests",

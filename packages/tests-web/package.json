@@ -1,12 +1,12 @@
 {
-	"name": "@eversdk/tests-web",
-	"version": "1.44.1",
+	"name": "@eversurf/tests-web",
+	"version": "0.3.0",
 	"private": true,
 	"description": "TON Client WASM module tests runner",
 	"scripts": {
 		"npm install": "npm install",
-		"web": "webpack-dev-server -d --config webpack.config.js --progress --colors --host 0.0.0.0",
-		"web:bundle": "webpack -p --config webpack.config.js --progress --colors --display-error-details"
+		"web": "webpack-dev-server --config webpack.config.js --progress --color --host 0.0.0.0",
+		"web:bundle": "webpack  --config webpack.config.js --progress --color --display-error-details"
 	},
 	"keywords": [
 		"TON",
@@ -19,24 +19,25 @@
 	"license": "SEE LICENSE IN LICENSE",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/tonlabs/ever-sdk-js.git"
+		"url": "https://github.com/EverSurf/dengine-bin.git"
 	},
-	"homepage": "https://docs.ton.dev/",
 	"dependencies": {
-		"@eversdk/core": "file:../core",
-		"@eversdk/lib-web": "file:../lib-web",
-		"@eversdk/tests": "file:../tests",
+		"@eversdk/core": "1.44.1",
+		"@eversdk/lib-web": "1.44.1",
+		"@eversurf/dengine-js": "file:../core",
+		"@eversurf/dengine-web": "file:../lib-web",
+		"@eversurf/tests": "file:../tests",
 		"assert": "^2.0.0",
 		"buffer": "^6.0.2",
 		"opentracing": "^0.14.4"
 	},
+	"main": "index.js",
 	"devDependencies": {
-		"copy-webpack-plugin": "^6.2.1",
-		"find-process": "^1.4.4",
-		"puppeteer": "^5.3.1",
-		"webpack": "5.1.3",
-		"webpack-cli": "3.3.12",
-		"webpack-dev-server": "3.11.0"
-	},
-	"main": "index.js"
+		"copy-webpack-plugin": "^11.0.0",
+		"find-process": "^1.4.7",
+		"puppeteer": "^21.1.1",
+		"webpack": "^5.88.2",
+		"webpack-cli": "^5.1.4",
+		"webpack-dev-server": "^4.15.1"
+	}
 }

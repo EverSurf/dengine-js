@@ -1,5 +1,5 @@
 {
-  "name": "@eversdk/tests-node",
+  "name": "@eversurf/tests-node",
   "version": "1.44.1",
   "private": true,
   "description": "TON Client Tests runner on NodeJs",
@@ -16,7 +16,6 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0"
     }
   ],
-  "homepage": "https://docs.ton.dev/",
   "engines": {
     "node": ">=6"
   },

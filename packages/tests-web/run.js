@@ -1,6 +1,5 @@
-const { TestsLogger, TestsRunner } = require('@eversdk/tests');
+const { TestsLogger, TestsRunner } = require('@eversurf/tests');
 const findProcess = require('find-process');
-
 const os = require('os');
 const { spawn } = require('child_process');
 const puppeteer = require('puppeteer');
@@ -29,6 +28,7 @@ function run(name, args, log) {
             spawned.stderr.on('data', (data) => {
                 errors.push(data);
                 process.stderr.write(data.toString());
+                log(data.toString());
             });
 
             spawned.on('error', (err) => {
@@ -42,6 +42,7 @@ function run(name, args, log) {
                     reject(errors.join(''));
                 }
             });
+            console.log("!!!!!!!!!!!!!!!!!!!!!!1")
         } catch (error) {
             reject(error);
         }
@@ -52,9 +53,9 @@ function startWebPackDevServer() {
     return new Promise((resolve, reject) => {
         run(
             path.resolve(__dirname, 'node_modules', '.bin', 'webpack-dev-server'),
-            ['-d', '--config', 'webpack.config.js', '--progress', '--colors', '--host', '127.0.0.1'],
+            ['--config', 'webpack.config.js', '--progress', '--color', '--host', '127.0.0.1'],
             (text) => {
-                if (text.includes(': Compiled successfully.') || text.includes(': Compiled with warnings.')) {
+                if (text.includes('<s> [webpack.Progress] 100%')) {
                     resolve();
                 }
             }
@@ -75,6 +76,7 @@ async function main() {
     const WEBPACK_DEV_SERVER_PORT = process.env.WEBPACK_DEV_SERVER_PORT || 4000;
     await killListenerProcess(WEBPACK_DEV_SERVER_PORT);
     await startWebPackDevServer();
+    console.log('puppeteer launch')
     const browser = await puppeteer.launch({
         args: [
             // Required for Docker version of Puppeteer
@@ -82,12 +84,15 @@ async function main() {
             '--disable-setuid-sandbox',
             // This will write shared memory files into /tmp instead of /dev/shm,
             // because Docker’s default for /dev/shm is 64MB
-            '--disable-dev-shm-usage'
+            '--disable-dev-shm-usage',
+            '--headless=new'
         ]
     });
+    console.log('launched')
     const page = await browser.newPage();
     TestsRunner.setTimeout = setTimeout;
     TestsRunner.log = console.log;
+    TestsRunner.fetch = fetch;
     TestsRunner.exit = (code) => {
         (async () => {
             await page.close();

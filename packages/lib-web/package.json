@@ -1,7 +1,7 @@
 {
-	"name": "@eversurf/lib-web",
+	"name": "@eversurf/dengine-web",
 	"version": "0.3.0",
-	"description": "WASM Dengine for web",
+	"description": "Dengine for web",
 	"main": "index.js",
 	"scripts": {
 		"postinstall": "node install.js"
@@ -25,5 +25,8 @@
 	],
 	"engines": {
 		"node": ">=6"
+	},
+	"dependencies": {
+		"follow-redirects": "^1.15.2"
 	}
 }
