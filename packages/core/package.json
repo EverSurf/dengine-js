@@ -13,7 +13,7 @@
     "build": "node before-compile.js && tsc"
   },
   "publishConfig": {
-    "access": "public"
+    "registry": "https://npm.pkg.github.com"
   },
   "keywords": [
     "EverSurf",

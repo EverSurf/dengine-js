@@ -1,5 +1,6 @@
 publish/
-lib/pkg/
+lib
+build
 **/*.lock
 *.wasm
 *.tgz

@@ -1,32 +1,36 @@
 {
-	"name": "@eversurf/dengine-web",
-	"version": "0.3.0",
-	"description": "Dengine for web",
-	"main": "index.js",
-	"scripts": {
-		"postinstall": "node install.js"
-	},
-	"publishConfig": {
-		"access": "public"
-	},
-	"keywords": [
-		"Everscale",
-		"Debot",
-		"Dengine",
-		"WASM"
-	],
-	"author": "Ever Surf",
-	"license": "Apache-2.0",
-	"licenses": [
-		{
-			"type": "Apache-2.0",
-			"url": "http://www.apache.org/licenses/LICENSE-2.0"
-		}
-	],
-	"engines": {
-		"node": ">=6"
-	},
-	"dependencies": {
-		"follow-redirects": "^1.15.2"
-	}
+  "name": "@eversurf/dengine-web",
+  "version": "0.3.0",
+  "description": "Dengine for web",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "node install.js"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/EverSurf/dengine-js"
+  },
+  "keywords": [
+    "verscale",
+    "debot",
+    "dengine",
+    "wasm"
+  ],
+  "author": "Ever Surf",
+  "license": "Apache-2.0",
+  "licenses": [
+    {
+      "type": "Apache-2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  ],
+  "engines": {
+    "node": ">=6"
+  },
+  "dependencies": {
+    "follow-redirects": "^1.15.2"
+  }
 }

@@ -19,7 +19,7 @@
 	"license": "SEE LICENSE IN LICENSE",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/EverSurf/dengine-bin.git"
+		"url": "https://github.com/EverSurf/dengine-js"
 	},
 	"dependencies": {
 		"@eversdk/core": "1.44.1",
