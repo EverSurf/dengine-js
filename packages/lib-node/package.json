@@ -2,11 +2,9 @@
   "name": "@eversurf/dengine-node",
   "version": "0.3.0",
   "description": "Dengine Nodejs addon",
+  "homepage": "https://ever.surf",
   "scripts": {
     "postinstall": "node install.js"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
   },
   "repository": {
     "type": "git",

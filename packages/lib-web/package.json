@@ -2,12 +2,10 @@
   "name": "@eversurf/dengine-web",
   "version": "0.3.0",
   "description": "Dengine for web",
+  "homepage": "https://ever.surf",
   "main": "index.js",
   "scripts": {
     "postinstall": "node install.js"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
   },
   "repository": {
     "type": "git",
