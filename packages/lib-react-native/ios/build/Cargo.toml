@@ -1,9 +1,10 @@
 [package]
-name = 'ton_client_rn_ios_build'
+name = 'dengine_ios_builder'
 version = '1.2.0'
-description = 'TON Client Build Tool'
+description = 'IOS builder'
 license = 'Apache-2.0'
-edition = '2018'
+edition = '2021'
+authors = ['Ever Surf']
 
 [dependencies]
 ton_client_build = { path = '../../../../build' }

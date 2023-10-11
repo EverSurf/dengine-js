@@ -45,7 +45,7 @@ const ARCHS: [Arch; 4] = [
     },
 ];
 
-const LIB: &str = "libeversdk.so";
+const LIB: &str = "libdengine.so";
 const NDK_VERSION: &str = "android-ndk-r26";
 const API: &str= "34";
 fn ndk_url() -> String {
@@ -59,21 +59,6 @@ fn main() {
     check_targets(&the_archs.iter().map(|x| x.target).collect::<Vec<_>>());
     check_ndk(&builder, &the_archs);
     for &arch in &the_archs {
-        /*
-        let mut path = std::env::var("PATH").unwrap_or("".into());
-        if !path.is_empty() {
-            path.push_str(":");
-        }
-        path.push_str(path_str(
-            &builder.lib_dir
-                .join("toolchains")
-                .join("llvm")
-                .join("prebuilt")
-                .join("linux-x86_64")
-                .join("bin")
-        ));
-        std::env::set_var("PATH", path);
-         */
         let target = arch.target;
         let toolchain = builder.lib_dir.join(format!("{NDK_VERSION}/toolchains/llvm/prebuilt/linux-x86_64"));
         std::env::set_var("TOOLCHAIN", &toolchain);
@@ -102,7 +87,7 @@ fn main() {
             );
             builder.publish_package_file(
                 &format!("src/main/jniLibs/{}/{}", arch.jni, LIB),
-                &format!("eversdk_{{v}}_react_native_{}", arch.target),
+                &format!("dengine_{{v}}_react_native_{}", arch.target),
             );
         } else {
             println!(
@@ -152,30 +137,6 @@ fn check_ndk(builder: &Build, the_archs: &[&Arch]) {
         println!("Standalone NDK already exists...");
         return;
     }
-    // /let mut ndk_home_dir = 
     get_ndk(builder);
-    //if !ndk_home_dir.exists() {
-    //    ndk_home_dir = PathBuf::from(std::env::var("ANDROID_HOME").unwrap()).join("ndk-bundle");
-    //}
-    /*
-    let maker = ndk_home_dir.join("build/tools/make_standalone_toolchain.py");
-    if !maker.exists() {
-        panic!("Please install android-ndk: $ brew install android-ndk");
-    }
-    std::fs::create_dir_all(&ndk_dir).unwrap();
-    std::env::set_current_dir(&ndk_dir).unwrap();
-    for &arch in the_archs {
-        assert!(exec(
-            "python3",
-            &[
-                path_str(&maker),
-                "--arch",
-                dbg!(arch.ndk),
-                "--install-dir",
-                dbg!(arch.ndk),
-            ],
-        ).success());
-    }
-     */
     std::env::set_current_dir(&builder.lib_dir).unwrap();
 }

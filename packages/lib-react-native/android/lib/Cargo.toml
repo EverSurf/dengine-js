@@ -1,17 +1,17 @@
 [package]
-name = 'ever_sdk_react_native_android'
-version = '1.41.0'
-authors = [ 'TON Labs' ]
+name = 'dengine_android_lib'
+version = '0.3.0'
+authors = [ 'Ever Surf' ]
 license = 'Apache-2.0'
 
 [lib]
-name = 'eversdk'
+name = 'dengine'
 crate-type = [ 'cdylib' ]
 
 [dependencies]
 lazy_static = '1.4.0'
 jni = { default-features = false, version = '0.12.0' }
-ton_client = { git = 'https://github.com/tonlabs/ever-sdk.git', tag = '1.44.3' }
+dengine = { git = 'https://github.com/EverSurf/dengine.git' }
 openssl = { features = [ 'vendored' ], version = '0.10' }
 
 [profile.release]

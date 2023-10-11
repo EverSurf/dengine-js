@@ -1,9 +1,10 @@
 [package]
-name = 'ton_client_rn_android_build'
-version = '1.2.0'
-description = 'TON Client Build Tool'
+name = 'dengine_android_builder'
+version = '0.1.0'
+description = 'Android builder'
 license = 'Apache-2.0'
-edition = '2018'
+edition = '2021'
+authors = [ 'Ever Surf' ]
 
 [dependencies]
 ton_client_build = { path = '../../../../build' }

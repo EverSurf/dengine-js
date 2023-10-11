@@ -1,8 +1,8 @@
-package tonlabs.tonclient;
+package eversurf.dengine;
 
-public class TonClientJsonInterface {
+public class DebotClientJsonInterface {
     static {
-        System.loadLibrary("eversdk");
+        System.loadLibrary("dengine");
     }
 
     public interface IResponseHandler {

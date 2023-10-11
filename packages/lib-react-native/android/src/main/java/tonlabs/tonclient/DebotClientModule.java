@@ -1,4 +1,4 @@
-package tonlabs.tonclient;
+package eversurf.dengine;
 
 import androidx.annotation.NonNull;
 
@@ -10,14 +10,14 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.Arguments;
 
-public class TonClientModule extends ReactContextBaseJavaModule {
+public class DebotClientModule extends ReactContextBaseJavaModule {
 
     private final ReactApplicationContext reactContext;
 
-    public TonClientModule(final ReactApplicationContext reactContext) {
+    public DebotClientModule(final ReactApplicationContext reactContext) {
         super(reactContext);
         this.reactContext = reactContext;
-        TonClientJsonInterface.IResponseHandler responseHandler = new TonClientJsonInterface.IResponseHandler() {
+        DebotClientJsonInterface.IResponseHandler responseHandler = new DebotClientJsonInterface.IResponseHandler() {
             @Override
             public void invoke(long requestId, String paramsJson, long responseType, boolean finished) {
                 WritableMap params = Arguments.createMap();
@@ -30,27 +30,27 @@ public class TonClientModule extends ReactContextBaseJavaModule {
                         .emit("Response", params);
             }
         };
-        TonClientJsonInterface.setResponseHandler(responseHandler);
+        DebotClientJsonInterface.setResponseHandler(responseHandler);
     }
 
     @NonNull
     @Override
     public String getName() {
-        return "TonClientModule";
+        return "DebotClientModule";
     }
 
     @ReactMethod
     public void sendRequest(int context, int requestId, String functionName, String functionParamsJson) {
-        TonClientJsonInterface.sendRequest(context, requestId, functionName, functionParamsJson);
+        DebotClientJsonInterface.sendRequest(context, requestId, functionName, functionParamsJson);
     }
 
     @ReactMethod
     public void createContext(String configJson, Callback onResult) {
-        onResult.invoke(TonClientJsonInterface.createContext(configJson));
+        onResult.invoke(DebotClientJsonInterface.createContext(configJson));
     }
 
     @ReactMethod
     public void destroyContext(int context) {
-        TonClientJsonInterface.destroyContext(context);
+        DebotClientJsonInterface.destroyContext(context);
     }
 }

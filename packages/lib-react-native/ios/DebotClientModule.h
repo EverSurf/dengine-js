@@ -7,7 +7,7 @@
 #import <React/RCTEventEmitter.h>
 #endif
 
-@interface TonClientModule : RCTEventEmitter <RCTBridgeModule>
+@interface DebotClientModule : RCTEventEmitter <RCTBridgeModule>
 
 @end
 
