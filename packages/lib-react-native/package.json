@@ -1,0 +1,38 @@
+{
+	"name": "@eversdk/lib-react-native",
+	"version": "1.44.3",
+	"description": "TON Client React Native Module",
+	"main": "index.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/tonlabs/ever-sdk-js.git"
+	},
+	"scripts": {
+		"postinstall": "node install.js"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"keywords": [
+		"TON",
+		"Client",
+		"FreeTON",
+		"TONOS",
+		"SDK"
+	],
+	"author": "TON Labs LTD.",
+	"license": "Apache-2.0",
+	"licenses": [
+		{
+			"type": "Apache-2.0",
+			"url": "http://www.apache.org/licenses/LICENSE-2.0"
+		}
+	],
+	"homepage": "https://docs.ton.dev/",
+	"engines": {
+		"node": ">=6"
+	},
+	"peerDependencies": {
+		"react-native": "^0.63.3"
+	}
+}
