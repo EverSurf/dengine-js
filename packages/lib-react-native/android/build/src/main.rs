@@ -67,8 +67,13 @@ fn main() {
         std::env::set_var("RANLIB", toolchain.join("bin/llvm-ranlib"));
         std::env::set_var("STRIP", toolchain.join("bin/llvm-strip"));
         std::env::set_var("LD", toolchain.join("bin/ld"));
-        std::env::set_var("CC", toolchain.join(format!("bin/{target}{API}-clang")));
-        std::env::set_var("CXX", toolchain.join(format!("bin/{target}{API}-clang++")));
+        if arch.ndk == "arm" {
+            std::env::set_var("CC", toolchain.join(format!("bin/armv7a-linux-androideabi{API}-clang")));
+            std::env::set_var("CXX", toolchain.join(format!("bin/armv7a-linux-androideabi{API}-clang++")));
+        } else {
+            std::env::set_var("CC", toolchain.join(format!("bin/{target}{API}-clang")));
+            std::env::set_var("CXX", toolchain.join(format!("bin/{target}{API}-clang++")));
+        }
         assert!(exec("cargo", &["build", "--target", target, "--release"]).success());
     }
 
