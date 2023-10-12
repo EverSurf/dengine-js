@@ -14,15 +14,15 @@
 #include <fbjni/fbjni.h>
 #endif
 
-#include "tonclient.h"
-#include "TonClientJsiModule.h"
+#include "debotclient.h"
+#include "DebotClientJsiModule.h"
 #include "request_data_t.h"
 
 using namespace facebook;
 
-namespace tonlabs
+namespace eversurf
 {
-  jsi::Value TonClientJsiModule::setResponseParamsHandler(
+  jsi::Value DebotClientJsiModule::setResponseParamsHandler(
       jsi::Runtime &rt,
       const jsi::Value &responseHandler)
   {
@@ -30,7 +30,7 @@ namespace tonlabs
     return jsi::Value::undefined();
   }
 
-  jsi::Value TonClientJsiModule::createContext(
+  jsi::Value DebotClientJsiModule::createContext(
       jsi::Runtime &rt,
       const jsi::Value &configJson,
       const jsi::Value &onResult)
@@ -51,7 +51,7 @@ namespace tonlabs
     return jsi::Value::undefined();
   }
 
-  jsi::Value TonClientJsiModule::destroyContext(
+  jsi::Value DebotClientJsiModule::destroyContext(
       jsi::Runtime &rt,
       const jsi::Value &context)
   {
@@ -59,7 +59,7 @@ namespace tonlabs
     return jsi::Value::undefined();
   }
 
-  jsi::Value TonClientJsiModule::sendRequestParams(
+  jsi::Value DebotClientJsiModule::sendRequestParams(
       jsi::Runtime &rt,
       const jsi::Value &context,
       const jsi::Value &requestId,
@@ -193,14 +193,14 @@ namespace tonlabs
                   static_cast<uint32_t>(functionParamsJsonStdString.length())};
 
               tc_response_handler_ptr_t response_handler =
-                  [](void *request_ptr, tc_string_data_t params_json, uint32_t response_type, bool finished) -> void { // either TON SDK worker thread or calling thread
+                  [](void *request_ptr, tc_string_data_t params_json, uint32_t response_type, bool finished) -> void {
 
 #ifdef __ANDROID__
                 jni::ThreadScope::WithClassLoader([&] { // thread attached to JVM
 #endif
                   request_data_t *request_data = reinterpret_cast<request_data_t *>(request_ptr);
 
-                  TonClientJsiModule *jsiModule = request_data->jsiModule;
+                  DebotClientJsiModule *jsiModule = request_data->jsiModule;
                   const uint32_t requestId = request_data->requestId;
                   const bool returnBlob = request_data->returnBlob;
 
@@ -301,4 +301,4 @@ namespace tonlabs
     return jsi::Value::undefined();
   }
 
-} // namespace tonlabs
+} // namespace eversurf

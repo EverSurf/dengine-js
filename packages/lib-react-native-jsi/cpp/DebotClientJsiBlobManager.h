@@ -5,12 +5,12 @@
 
 using namespace facebook;
 
-namespace tonlabs
+namespace eversurf
 {
 
-  struct TonClientJsiBlobManager : jni::JavaClass<TonClientJsiBlobManager>
+  struct DebotClientJsiBlobManager : jni::JavaClass<DebotClientJsiBlobManager>
   {
-    __unused static constexpr auto kJavaDescriptor = "Lcom/tonlabs/tonclientjsi/TonClientJsiBlobManager;";
+    __unused static constexpr auto kJavaDescriptor = "Lcom/eversurf/denginejsi/DebotClientJsiBlobManager;";
 
     std::string store(jni::alias_ref<jni::JByteBuffer> byteBuffer) // calling thread must be attached to JVM
     {
@@ -25,4 +25,4 @@ namespace tonlabs
     }
   };
 
-} // namespace tonlabs
+} // namespace

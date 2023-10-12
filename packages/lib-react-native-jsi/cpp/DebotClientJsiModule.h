@@ -11,9 +11,9 @@
 
 using namespace facebook;
 
-namespace tonlabs
+namespace eversurf
 {
-  class TonClientJsiModule : public facebook::react::SchemaCxxSpecJSI
+  class DebotClientJsiModule : public facebook::react::SchemaCxxSpecJSI
   {
   public:
     jsi::Value setResponseParamsHandler(
@@ -36,16 +36,16 @@ namespace tonlabs
         const jsi::Value &functionName,
         const jsi::Value &functionParams) override;
 
-    TonClientJsiModule(
+    DebotClientJsiModule(
         jsi::Runtime &runtime,
         std::shared_ptr<facebook::react::CallInvoker> jsCallInvoker,
-        std::unique_ptr<tonlabs::BlobManager> blobManager)
+        std::unique_ptr<eversurf::BlobManager> blobManager)
         : facebook::react::SchemaCxxSpecJSI(jsCallInvoker),
           runtime_(runtime),
           jsCallInvoker_(jsCallInvoker),
           blobManager_(std::move(blobManager)){};
 
-    ~TonClientJsiModule()
+    ~DebotClientJsiModule()
     {
       // prevents JS runtime deallocation until all pending requests are complete
       std::unique_lock<std::mutex> lock(this->mutex_);
@@ -56,7 +56,7 @@ namespace tonlabs
   private:
     jsi::Runtime &runtime_;
     std::shared_ptr<facebook::react::CallInvoker> jsCallInvoker_;
-    std::unique_ptr<tonlabs::BlobManager> blobManager_;
+    std::unique_ptr<eversurf::BlobManager> blobManager_;
     std::unique_ptr<jsi::Function> responseHandler_;
 
     std::condition_variable cv_;
@@ -79,4 +79,4 @@ namespace tonlabs
     }
   };
 
-} // namespace tonlabs
+} // namespace eversurf

@@ -2,7 +2,7 @@
 #import "TonClientJsiModule.h"
 #import "TONJSIExecutorInitializer.h"
 
-namespace tonlabs
+namespace eversurf
 {
   using namespace facebook::react;
 
@@ -21,11 +21,11 @@ namespace tonlabs
 
       RCTBlobManager *reactBlobManager = [bridge moduleForName:@"BlobModule"];
 
-      std::unique_ptr<tonlabs::BlobManager> blobManager =
-          std::make_unique<tonlabs::BlobManager>(reactBlobManager);
+      std::unique_ptr<eversurf::BlobManager> blobManager =
+          std::make_unique<eversurf::BlobManager>(reactBlobManager);
 
-      std::unique_ptr<tonlabs::TonClientJsiModule> tonClientJsiModule =
-          std::make_unique<tonlabs::TonClientJsiModule>(runtime, jsCallInvoker, std::move(blobManager));
+      std::unique_ptr<eversurf::TonClientJsiModule> tonClientJsiModule =
+          std::make_unique<eversurf::TonClientJsiModule>(runtime, jsCallInvoker, std::move(blobManager));
 
       runtime.global().setProperty(
           runtime,
@@ -40,4 +40,4 @@ namespace tonlabs
     return runtimeInstaller;
   }
 
-} // namespace tonlabs
+} // namespace eversurf

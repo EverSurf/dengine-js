@@ -5,7 +5,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-namespace tonlabs
+namespace eversurf
 {
   using namespace facebook::react;
 
@@ -13,6 +13,6 @@ namespace tonlabs
       RCTBridge *bridge,
       JSIExecutor::RuntimeInstaller runtimeInstallerToWrap);
 
-} // namespace tonlabs
+} // namespace eversurf
 
 NS_ASSUME_NONNULL_END

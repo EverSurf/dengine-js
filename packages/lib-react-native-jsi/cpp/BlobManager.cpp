@@ -7,7 +7,7 @@
 #include "base64.h"
 #include "BlobManager.h"
 
-namespace tonlabs
+namespace eversurf
 {
   Blob BlobManager::store(const std::string &base64encoded)
   {

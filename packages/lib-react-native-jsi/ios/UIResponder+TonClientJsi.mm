@@ -22,7 +22,7 @@ typedef facebook::react::JSCExecutorFactory ExecutorFactory;
 
 - (std::unique_ptr<facebook::react::JSExecutorFactory>)jsExecutorFactoryForBridge:(RCTBridge *)bridge
 {
-  const auto installer = tonlabs::TONJSIExecutorRuntimeInstaller(bridge, nullptr);
+  const auto installer = eversurf::TONJSIExecutorRuntimeInstaller(bridge, nullptr);
 
 #if RNVERSION >= 64
   // installs globals such as console, nativePerformanceNow, etc.

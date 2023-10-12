@@ -1,13 +1,13 @@
-package com.tonlabs.tonclientjsi;
+package com.eversurf.denginejsi;
 
 import com.facebook.react.modules.blob.BlobModule;
 
 import java.nio.ByteBuffer;
 
-class TonClientJsiBlobManager {
+class DebotClientJsiBlobManager {
   final private BlobModule reactNativeBlobModule;
 
-  public TonClientJsiBlobManager(BlobModule reactNativeBlobModule) {
+  public DebotClientJsiBlobManager(BlobModule reactNativeBlobModule) {
     this.reactNativeBlobModule = reactNativeBlobModule;
   }
 
