@@ -24,7 +24,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/tonlabs/ever-sdk-js.git"
+    "url": "https://github.com/EverSurf/dengine-js.git"
   },
   "scripts": {
     "postinstall": "node install.js",
@@ -38,13 +38,12 @@
     "bootstrap": "yarn example && yarn && yarn pods"
   },
   "keywords": [
-    "TON",
-    "Client",
-    "FreeTON",
-    "TONOS",
-    "SDK"
+    "everscale",
+    "eversurf",
+    "dengine",
+    "debot"
   ],
-  "author": "TON Labs LTD.",
+  "author": "Ever Surf",
   "license": "Apache-2.0",
   "licenses": [
     {
@@ -52,9 +51,8 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0"
     }
   ],
-  "homepage": "https://docs.ton.dev/",
   "bugs": {
-    "url": "https://github.com/tonlabs/ever-sdk-js/issues"
+    "url": "https://github.com/EverSurf/dengine-js/issues"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
