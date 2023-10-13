@@ -10,7 +10,8 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@eversdk/core": "file:../../core",
+    "@eversurf/dengine": "file:../../core",
+    "@eversdk/core": "1.44.2",
     "buffer": "^6.0.2",
     "react": "16.13.1",
     "react-native": "0.63.4"
