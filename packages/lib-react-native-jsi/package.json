@@ -7,21 +7,6 @@
   "types": "lib/typescript/index.d.ts",
   "react-native": "src/index",
   "source": "src/index",
-  "files": [
-    "src",
-    "lib",
-    "android",
-    "ios",
-    "cpp",
-    "install.js",
-    "lib-react-native-jsi.podspec",
-    "!android/build",
-    "!android/.cxx",
-    "!ios/build",
-    "!**/__tests__",
-    "!**/__fixtures__",
-    "!**/__mocks__"
-  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/EverSurf/dengine-js.git"
