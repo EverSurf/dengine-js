@@ -37,14 +37,14 @@ namespace eversurf
   {
     std::string configJsonString = configJson.asString(rt).utf8(rt);
     tc_string_data_t config{configJsonString.c_str(), static_cast<uint32_t>(configJsonString.length())};
-    tc_string_handle_t *json_ptr = tc_create_context(config);
+    tc_string_handle_t *json_ptr = tc_create_dengine_context(config);
 
     std::shared_ptr<jsi::Function> onResultPtr = std::make_shared<jsi::Function>(onResult.asObject(rt).asFunction(rt));
     this->jsCallInvoker_->invokeAsync([&rt, onResultPtr, json_ptr]
                                       {
-                                        tc_string_data_t json = tc_read_string(json_ptr);
+                                        tc_string_data_t json = tc_dengine_read_string(json_ptr);
                                         std::string result(json.content, json.len);
-                                        tc_destroy_string(json_ptr);
+                                        tc_dengine_destroy_string(json_ptr);
                                         onResultPtr->call(rt, jsi::Value(jsi::String::createFromUtf8(rt, result)));
                                       });
 
@@ -55,7 +55,7 @@ namespace eversurf
       jsi::Runtime &rt,
       const jsi::Value &context)
   {
-    tc_destroy_context(static_cast<uint32_t>(context.asNumber()));
+    tc_destroy_dengine_context(static_cast<uint32_t>(context.asNumber()));
     return jsi::Value::undefined();
   }
 
@@ -288,7 +288,7 @@ namespace eversurf
 
               this->incrementActiveRequests();
 
-              tc_request_ptr(context_uint32, function_name, function_params_json, request_data, response_handler);
+              tc_dengine_request_ptr(context_uint32, function_name, function_params_json, request_data, response_handler);
 
 #ifdef __ANDROID__
             }); // jni::ThreadScope::WithClassLoader
