@@ -13,7 +13,7 @@ import * as React from 'react';
 import {Button, Image, StyleSheet, Text, View} from 'react-native';
 
 import {TonClient} from '@eversdk/core';
-import {DebotClient} from '@eversurf/dengine';
+import {DebotClient} from '@eversurf/dengine-js';
 import buffer from 'buffer';
 
 const Buffer = global.Buffer ?? buffer.Buffer;

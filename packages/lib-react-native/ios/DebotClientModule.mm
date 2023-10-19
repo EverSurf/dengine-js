@@ -1,8 +1,8 @@
 
-#import "TonClientModule.h"
-#import "tonclient.h"
+#import "DebotClientModule.h"
+#import "dengine.h"
 
-@implementation TonClientModule
+@implementation DebotClientModule
 {
   bool hasListeners;
 }
@@ -17,12 +17,12 @@
 
 - (dispatch_queue_t)methodQueue
 {
-    return dispatch_queue_create("react-native.client.ton", DISPATCH_QUEUE_SERIAL);
+    return dispatch_queue_create("react-native.dengine.eversurf", DISPATCH_QUEUE_SERIAL);
 }
 RCT_EXPORT_MODULE()
 
 +(id)allocWithZone:(NSZone *)zone {
-    static TonClientModule *sharedInstance = nil;
+    static DebotClientModule *sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedInstance = [super allocWithZone:zone];
@@ -72,7 +72,7 @@ static void handleResponse(
     uint32_t responseType,
     bool finished
 ) {
-    TonClientModule* module = [[TonClientModule alloc] init];
+    DebotClientModule* module = [[DebotClientModule alloc] init];
     [module
         handleResponseForRequestId: requestId
         paramsJson: paramsJson
@@ -83,14 +83,14 @@ static void handleResponse(
 
 
 RCT_EXPORT_METHOD(createContext: (NSString*)configJson callback: (RCTResponseSenderBlock)callback) {
-    auto responseHandle = tc_create_context(dataFromString(configJson));
-    auto responseString = stringFromData(tc_read_string(responseHandle));
-    tc_destroy_string(responseHandle);
+    auto responseHandle = tc_create_dengine_context(dataFromString(configJson));
+    auto responseString = stringFromData(tc_dengine_read_string(responseHandle));
+    tc_dengine_destroy_string(responseHandle);
     callback(@[responseString]);
 }
 
 RCT_EXPORT_METHOD(destroyContext: (uint32_t)context) {
-    tc_destroy_context(context);
+    tc_destroy_dengine_context(context);
 }
 
 RCT_EXPORT_METHOD(sendRequest: (nonnull NSNumber*) context
@@ -98,7 +98,7 @@ RCT_EXPORT_METHOD(sendRequest: (nonnull NSNumber*) context
     functionName:(nonnull NSString *)functionName
     functionParamsJson:(nonnull NSString *)functionParamsJson
 ) {
-    tc_request(
+    tc_dengine_request(
         context.intValue,
         dataFromString(functionName),
         dataFromString(functionParamsJson),

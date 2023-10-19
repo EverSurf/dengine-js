@@ -1,5 +1,5 @@
 #import "BlobManager.h"
-#import "TonClientJsiModule.h"
+#import "DebotClientJsiModule.h"
 #import "TONJSIExecutorInitializer.h"
 
 namespace eversurf
@@ -24,13 +24,13 @@ namespace eversurf
       std::unique_ptr<eversurf::BlobManager> blobManager =
           std::make_unique<eversurf::BlobManager>(reactBlobManager);
 
-      std::unique_ptr<eversurf::TonClientJsiModule> tonClientJsiModule =
-          std::make_unique<eversurf::TonClientJsiModule>(runtime, jsCallInvoker, std::move(blobManager));
+      std::unique_ptr<eversurf::DebotClientJsiModule> debotClientJsiModule =
+          std::make_unique<eversurf::DebotClientJsiModule>(runtime, jsCallInvoker, std::move(blobManager));
 
       runtime.global().setProperty(
           runtime,
-          jsi::PropNameID::forAscii(runtime, "tonClientJsiModule"),
-          jsi::Object::createFromHostObject(runtime, std::move(tonClientJsiModule)));
+          jsi::PropNameID::forAscii(runtime, "debotClientJsiModule"),
+          jsi::Object::createFromHostObject(runtime, std::move(debotClientJsiModule)));
 
       if (runtimeInstallerToWrap)
       {

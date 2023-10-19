@@ -11,10 +11,11 @@
 * limitations under the License.
 */
 
-extern crate libc;
 extern crate dengine;
+extern crate libc;
 
 pub use dengine::{
-    tc_create_context, tc_destroy_context, tc_destroy_string, tc_read_string, tc_request,
-    tc_request_sync, CResponseHandler, ContextHandle, ResponseType, StringData,
+    tc_create_dengine_context, tc_dengine_destroy_string, tc_dengine_read_string,
+    tc_dengine_request, tc_dengine_request_sync, tc_destroy_dengine_context, CResponseHandler,
+    ContextHandle, ResponseType, StringData,
 };

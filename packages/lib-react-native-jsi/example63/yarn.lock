@@ -705,7 +705,7 @@
   resolved "https://registry.yarnpkg.com/@eversdk/core/-/core-1.44.2.tgz#2de16cfc57a4ecd91262ed74b0943fec81633beb"
   integrity sha512-xfXa+tvaAeyInowAGWxVn9Krv2SV9aWaC6jR7Luq+80HKQAscZTiTpIYeLuBbucMkJdYMxiKbRgoOiDT7rsK2w==
 
-"@eversurf/dengine@file:../../core":
+"@eversurf/dengine-js@file:../../core":
   version "0.3.0"
 
 "@hapi/address@2.x.x":

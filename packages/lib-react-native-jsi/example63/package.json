@@ -10,7 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@eversurf/dengine": "file:../../core",
+    "@eversurf/dengine-js": "file:../../core",
     "@eversdk/core": "1.44.2",
     "buffer": "^6.0.2",
     "react": "16.13.1",
