@@ -36,6 +36,7 @@
       "url": "http://www.apache.org/licenses/LICENSE-2.0"
     }
   ],
+  "homepage": "https://ever.surf/",
   "bugs": {
     "url": "https://github.com/EverSurf/dengine-js/issues"
   },

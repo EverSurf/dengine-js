@@ -21,7 +21,7 @@ folly_version = '2021.04.26.00'
 boost_compiler_flags = '-Wno-documentation'
 
 Pod::Spec.new do |s|
-  s.name         = "lib-react-native-jsi"
+  s.name         = "dengine-react-native-jsi"
   s.version      = package["version"]
   s.summary      = package["description"]
   s.homepage     = package["homepage"]
