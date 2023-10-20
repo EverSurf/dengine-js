@@ -1,6 +1,6 @@
 {
   "name": "@eversurf/dengine-rn-jsi",
-  "version": "0.3.2",
+  "version": "0.3.5",
   "description": "Dengine React Native JSI",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",

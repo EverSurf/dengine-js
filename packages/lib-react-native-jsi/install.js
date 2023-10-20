@@ -166,10 +166,10 @@ async function main() {
     ),
     `dengine_${binariesVersion}_react_native_x86_64-linux-android`
   );
-  //await dl(
-  //  path.join(binariesTargetPath, `ios`, `libdengine.a`),
-  //  `dengine_${binariesVersion}_react_native_ios`
-  //);
+  await dl(
+    path.join(binariesTargetPath, `ios`, `libdengine.a`),
+    `dengine_${binariesVersion}_react_native_ios`
+  );
 }
 
 (async () => {
