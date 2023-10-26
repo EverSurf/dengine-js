@@ -1,23 +1,11 @@
-<h1>React Native JSI Library</h1>
+<h1>Dengine for React Native JSI</h1>
 
 JSI-based implementation of a bridge to mobile React Native platform including static libraries for iOS and Android.
-
-<h1>Table of contents</h1>
-
-- [Installation](#installation)
-  - [iOS](#ios)
-  - [Android](#android)
-- [Setup](#setup)
-- [Usage](#usage)
-- [Interface](#interface)
-- [Blob support](#blob-support)
-- [Development](#development)
-- [Testing](#testing)
 
 # Installation
 
 ```sh
-yarn add @eversurf/lib-react-native-jsi
+yarn add @eversurf/dengine-rn-jsi
 ```
 
 ## iOS
@@ -50,245 +38,13 @@ Then, rename `AppDelegate.m` to `AppDelegate.mm` in order to compile this file a
 
 `AppDelegate.mm`
 
-```diff
-#import "AppDelegate.h"
-
-...
-
-+#import <React/RCTCxxBridgeDelegate.h>
-+#import <RNReanimated/REAInitializer.h>
-+#import <lib-react-native-jsi/TONJSIExecutorInitializer.h>
-
-+#if __has_include(<reacthermes/HermesExecutorFactory.h>)
-+#import <reacthermes/HermesExecutorFactory.h>
-+typedef HermesExecutorFactory ExecutorFactory;
-+#elif __has_include(<React/HermesExecutorFactory.h>)
-+#import <React/HermesExecutorFactory.h>
-+typedef HermesExecutorFactory ExecutorFactory;
-+#else
-+#import <React/JSCExecutorFactory.h>
-+typedef JSCExecutorFactory ExecutorFactory;
-+#endif
-
-+#if __has_include(<React/RCTJSIExecutorRuntimeInstaller.h>)
-+#import <React/RCTJSIExecutorRuntimeInstaller.h>
-+#endif
-
-...
-
-+@interface AppDelegate() <RCTCxxBridgeDelegate>
-+
-+@end
-
-@implementation AppDelegate
-
-...
-
-+- (std::unique_ptr<facebook::react::JSExecutorFactory>)jsExecutorFactoryForBridge:(RCTBridge *)bridge
-+{
-+  const auto installer = tonlabs::TONJSIExecutorRuntimeInstaller(bridge, reanimated::REAJSIExecutorRuntimeInstaller(bridge, NULL));
-+
-+#if __has_include(<React/RCTJSIExecutorRuntimeInstaller.h>)
-+  // installs globals such as console, nativePerformanceNow, etc.
-+  return std::make_unique<ExecutorFactory>(RCTJSIExecutorRuntimeInstaller(installer));
-+#else
-+  return std::make_unique<ExecutorFactory>(installer);
-+#endif
-+}
-
-@end
-
-```
-
-> **Note:** Make sure that your project uses C++14 or higher. You can change C++ Language Dialect in the Build Settings of your project.
-
 ## Android
 
-Requirements: Android NDK 21.3.6528147
+Requirements: Android NDK 26.0.10792818
 
 `android/build.gradle`
 
-```diff
-buildscript {
-    // ...
-
-    dependencies {
--        classpath('com.android.tools.build:gradle:3.5.3')
-+        classpath('com.android.tools.build:gradle:4.1.0')
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
-    }
-}
-```
-
-`android/app/build.gradle`
-
-```diff
-android {
-    applicationVariants.all { variant ->
-        // ...
-    }
-
-+    configurations {
-+        all*.exclude module: 'fbjni-java-only'
-+    }
-+
-+    packagingOptions {
-+        pickFirst 'lib/*/libfbjni.so'
-+        pickFirst 'lib/*/libc++_shared.so'
-+    }
-}
-
-```
-
-`android/gradle.properties`
-
-```diff
-# Version of flipper SDK to use with React Native
--FLIPPER_VERSION=0.75.1
-+FLIPPER_VERSION=0.93.0
-```
-
-`android/app/src/main/java/.../MainApplication.java`
-
-```diff
-+import com.facebook.react.bridge.JSIModulePackage;
-+import com.tonlabs.tonclientjsi.TonClientJSIModulePackage;
-
-public class MainApplication extends Application implements ReactApplication {
-
-  private final ReactNativeHost mReactNativeHost =
-      new ReactNativeHost(this) {
-        ...
-
-        @Override
-        protected String getJSMainModuleName() {
-          return "index";
-        }
-
-+        @Override
-+        protected JSIModulePackage getJSIModulePackage() {
-+          return new TonClientJSIModulePackage();
-+        }
-      };
-```
-
-If you wish to use lib-react-native-jsi and [react-native-reanimated](https://github.com/software-mansion/react-native-reanimated) simultaneously, you need to initialize all JSI libraries in `getJSIModules` method of a custom `JSIModulePackage` instance:
-
-```diff
-+import com.facebook.react.bridge.JavaScriptContextHolder;
-+import com.facebook.react.bridge.JSIModuleSpec;
-+import com.facebook.react.bridge.JSIModulePackage;
-+import com.facebook.react.bridge.ReactApplicationContext;
-+import com.swmansion.reanimated.ReanimatedJSIModulePackage;
-+import com.tonlabs.tonclientjsi.TonClientJSIModulePackage;
-+import java.util.Arrays;
-
-public class MainApplication extends Application implements ReactApplication {
-
-  private final ReactNativeHost mReactNativeHost =
-      new ReactNativeHost(this) {
-        ...
-
-        @Override
-        protected String getJSMainModuleName() {
-          return "index";
-        }
-
-+        @Override
-+        protected JSIModulePackage getJSIModulePackage() {
-+          return new JSIModulePackage() {
-+            @Override
-+            public List<JSIModuleSpec> getJSIModules(final ReactApplicationContext reactApplicationContext, final JavaScriptContextHolder jsContext) {
-+              new ReanimatedJSIModulePackage().getJSIModules(reactApplicationContext, jsContext);
-+              new TonClientJSIModulePackage().getJSIModules(reactApplicationContext, jsContext);
-+              return Arrays.<JSIModuleSpec>asList();
-+            }
-+          };
-+        }
-      };
-```
-
-`android/app/src/main/AndroidManifest.xml`
-
-```diff
-<manifest>
-  <application>
-+    <provider
-+      android:name="com.facebook.react.modules.blob.BlobProvider"
-+      android:authorities="@string/blob_provider_authority"
-+      android:exported="false"
-+    />
-  </application>
-</manifest>
-```
-
-`android/app/src/main/res/values/strings.xml`
-
-```diff
-<resources>
-  ...
-+  <string name="blob_provider_authority">your.app.package.blobs</string>
-</resources>
-```
-
 # Setup
-
-`index.tsx`
-
-```ts
-import { TonClient } from '@eversdk/core';
-import { libReactNativeJsi } from 'lib-react-native-jsi';
-
-// Application initialization
-
-TonClient.useBinaryLibrary(libReactNativeJsi);
-```
-
-# Usage
-
-```ts
-const client = new TonClient();
-const keys = await client.crypto.generate_random_sign_keys();
-```
-
-# Interface
-
-```ts
-setResponseParamsHandler(
-  handler: (
-    requestId: number,
-    params: any,
-    responseType: number,
-    finished: boolean
-  ) => void
-): void
-```
-
-Sets the response handler for `sendRequestParams`.
-
-```ts
-createContext(configJson: string): Promise<string>
-```
-
-Calls `tc_create_context` from TON SDK.
-
-```ts
-destroyContext(context: number): void
-```
-
-Calls `tc_destroy_context` from TON SDK.
-
-```ts
-sendRequestParams(
-  context: number,
-  requestId: number,
-  functionName: string,
-  functionParams: any
-): void
-```
-
-Calls `tc_request_ptr` from TON SDK.
 
 # Blob support
 
@@ -348,24 +104,6 @@ You can override this behaviour by passing additional parameter `response_binary
 - `base64` &ndash; all string response params will be returned as original strings returned from TON SDK
 
 - `blob` &ndash; all string response params will decoded from base64 and returned as raw binary JS Blobs
-
-In the following example, the generated bytes are returned as a blob. Without `response_binary_type` parameter, the random payload would be returned as base64-encoded string, because there are no blobs in the request params.
-
-```js
-const { bytes } = await client.crypto.generate_random_bytes({
-  length: 1024,
-  response_binary_type: 'blob',
-}); // returns bytes as blob
-```
-
-In the example below, we calculate the hash of the provided blob and force the response binary type to string. Without `response_binary_type` parameter, the hash would be returned as a blob.
-
-```js
-const { hash } = await client.crypto.sha512({
-  data: decrypted,
-  response_binary_type: 'base64',
-}); // returns hash as string
-```
 
 # Development
 
@@ -429,9 +167,9 @@ Then, install the dependencies from `*.tgz` archives:
 
 ```sh
 cd ../tests-react-native-jsi
-npm add file:../core/eversdk-core-1.30.1.tgz
-npm add file:../tests/eversdk-tests-1.30.1.tgz
-npm add file:../lib-react-native-jsi/eversdk-lib-react-native-jsi-1.30.1.tgz
+npm add file:../core/dengine-js-1.30.1.tgz
+npm add file:../tests/dengine-tests-1.30.1.tgz
+npm add file:../lib-react-native-jsi/dengine-rn-jsi-1.30.1.tgz
 npm i
 cd ios
 pod install

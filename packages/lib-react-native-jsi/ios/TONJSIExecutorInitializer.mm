@@ -1,8 +1,8 @@
 #import "BlobManager.h"
-#import "TonClientJsiModule.h"
+#import "DebotClientJsiModule.h"
 #import "TONJSIExecutorInitializer.h"
 
-namespace tonlabs
+namespace eversurf
 {
   using namespace facebook::react;
 
@@ -21,16 +21,16 @@ namespace tonlabs
 
       RCTBlobManager *reactBlobManager = [bridge moduleForName:@"BlobModule"];
 
-      std::unique_ptr<tonlabs::BlobManager> blobManager =
-          std::make_unique<tonlabs::BlobManager>(reactBlobManager);
+      std::unique_ptr<eversurf::BlobManager> blobManager =
+          std::make_unique<eversurf::BlobManager>(reactBlobManager);
 
-      std::unique_ptr<tonlabs::TonClientJsiModule> tonClientJsiModule =
-          std::make_unique<tonlabs::TonClientJsiModule>(runtime, jsCallInvoker, std::move(blobManager));
+      std::unique_ptr<eversurf::DebotClientJsiModule> debotClientJsiModule =
+          std::make_unique<eversurf::DebotClientJsiModule>(runtime, jsCallInvoker, std::move(blobManager));
 
       runtime.global().setProperty(
           runtime,
-          jsi::PropNameID::forAscii(runtime, "tonClientJsiModule"),
-          jsi::Object::createFromHostObject(runtime, std::move(tonClientJsiModule)));
+          jsi::PropNameID::forAscii(runtime, "debotClientJsiModule"),
+          jsi::Object::createFromHostObject(runtime, std::move(debotClientJsiModule)));
 
       if (runtimeInstallerToWrap)
       {
@@ -40,4 +40,4 @@ namespace tonlabs
     return runtimeInstaller;
   }
 
-} // namespace tonlabs
+} // namespace eversurf

@@ -15,20 +15,20 @@
  */
 
 const fs = require('fs');
-const http = require('http');
-const https = require('https');
+const {http, https} = require('follow-redirects');
 const zlib = require('zlib');
 const path = require('path');
 const os = require('os');
 
 const binariesSource =
-  process.env.TON_CLIENT_BIN_SRC || 'https://binaries.tonlabs.io';
+  process.env.DENGINE_BIN_SRC ||
+  'https://github.com/EverSurf/dengine-bin/releases/download';
 const binariesVersion =
-  process.env.TON_CLIENT_BIN_VERSION ||
+  process.env.DENGINE_BIN_VERSION ||
   require('./package.json').version.split('.').slice(0, 2).join('_');
 const binariesHomePath = path.resolve(
   os.homedir(),
-  '.tonlabs',
+  '.eversurf',
   'binaries',
   binariesVersion
 );
@@ -106,7 +106,7 @@ function resolveBinariesTargetPath() {
 }
 
 async function dl(dstPath, src) {
-  const srcUrl = `${binariesSource}/${src}.gz`;
+  const srcUrl = `${binariesSource}/alpha/${src}.gz`;
   const dstDir = path.dirname(path.resolve(dstPath));
   if (!fs.existsSync(dstDir)) {
     fs.mkdirSync(dstDir, { recursive: true });

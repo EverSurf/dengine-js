@@ -23,7 +23,7 @@ static def findNodeModules(baseDir) {
     }
     basePath = basePath.getParent()
   }
-  throw new GradleException("EverSDK: Failed to find node_modules/ path!")
+  throw new GradleException("Failed to find node_modules/ path!")
 }
 
 def nodeModulesDir = findNodeModules(rootProject.projectDir)
@@ -151,11 +151,11 @@ buildscript {
 apply plugin: 'com.android.library'
 
 def getExtOrDefault(name) {
-  return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties['TonClientJsi_' + name]
+  return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties['DebotClientJsi_' + name]
 }
 
 def getExtOrIntegerDefault(name) {
-  return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties['TonClientJsi_' + name]).toInteger()
+  return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties['DebotClientJsi_' + name]).toInteger()
 }
 
 def reactNativeArchitectures() {

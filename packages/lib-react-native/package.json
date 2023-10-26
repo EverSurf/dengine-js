@@ -1,0 +1,36 @@
+{
+	"name": "@eversurf/dengine-rn",
+	"version": "0.3.0",
+	"description": "Dengine for react native",
+	"main": "index.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/EverSurf/dengine-js.git"
+	},
+	"scripts": {
+		"postinstall": "node install.js"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"keywords": [
+		"dengine",
+		"debot",
+		"everscale",
+		"eversurf"
+	],
+	"author": "Ever Surf",
+	"license": "Apache-2.0",
+	"licenses": [
+		{
+			"type": "Apache-2.0",
+			"url": "http://www.apache.org/licenses/LICENSE-2.0"
+		}
+	],
+	"engines": {
+		"node": ">=6"
+	},
+	"peerDependencies": {
+		"react-native": "^0.63.3"
+	}
+}

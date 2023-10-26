@@ -1,0 +1,10 @@
+[package]
+name = 'dengine_ios_builder'
+version = '0.3.0'
+description = 'IOS builder'
+license = 'Apache-2.0'
+edition = '2021'
+authors = ['Ever Surf']
+
+[dependencies]
+ton_client_build = { path = '../../../../build' }

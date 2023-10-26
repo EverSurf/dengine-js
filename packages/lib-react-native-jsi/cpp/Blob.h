@@ -7,7 +7,7 @@
 
 using namespace facebook;
 
-namespace tonlabs
+namespace eversurf
 {
   class Blob
   {
@@ -28,4 +28,4 @@ namespace tonlabs
     friend class BlobManager;
   };
 
-} // namespace tonlabs
+} // namespace
