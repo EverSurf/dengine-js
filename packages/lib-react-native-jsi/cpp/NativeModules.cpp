@@ -47,7 +47,7 @@ namespace facebook
     }
 
     SchemaCxxSpecJSI::SchemaCxxSpecJSI(std::shared_ptr<CallInvoker> jsInvoker)
-        : TurboModule("TonClientJsiTurboModule", jsInvoker)
+        : TurboModule("DebotClientJsiTurboModule", jsInvoker)
     {
       methodMap_["setResponseParamsHandler"] = MethodMetadata{1, __hostFunction_SchemaCxxSpecJSI_setResponseParamsHandler};
       methodMap_["createContext"] = MethodMetadata{2, __hostFunction_SchemaCxxSpecJSI_createContext};

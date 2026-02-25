@@ -1,0 +1,13 @@
+tsconfig.*
+.yarnrc
+.editorconfig
+yarn.lock
+**/__tests__
+**/__fixtures__
+**/__mocks__
+example*
+local.properties
+libdengine.so
+android/build
+.gitattributes
+*.tgz

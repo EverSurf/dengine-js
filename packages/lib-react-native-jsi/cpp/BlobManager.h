@@ -3,7 +3,7 @@
 #ifdef __ANDROID__
 
 #include <fbjni/fbjni.h>
-#include "TonClientJsiBlobManager.h"
+#include "DebotClientJsiBlobManager.h"
 
 #elif __APPLE__
 
@@ -19,7 +19,7 @@ typedef struct objc_object RCTBlobManager;
 
 using namespace facebook;
 
-namespace tonlabs
+namespace eversurf
 {
   class BlobManager
   {
@@ -31,16 +31,16 @@ namespace tonlabs
                                     // on Android this method must be called from a thread attached to JVM
 
 #ifdef __ANDROID__
-    BlobManager(jni::global_ref<TonClientJsiBlobManager> javaBlobManager) : javaBlobManager_(javaBlobManager){};
+    BlobManager(jni::global_ref<DebotClientJsiBlobManager> javaBlobManager) : javaBlobManager_(javaBlobManager){};
 #elif __APPLE__
     BlobManager(RCTBlobManager *reactBlobManager) : reactBlobManager_(reactBlobManager){};
 #endif
 
   private:
 #ifdef __ANDROID__
-    jni::global_ref<TonClientJsiBlobManager> javaBlobManager_;
+    jni::global_ref<DebotClientJsiBlobManager> javaBlobManager_;
 #elif __APPLE__
     RCTBlobManager *reactBlobManager_;
 #endif
   };
-} // namespace tonlabs
+} // namespace eversurf

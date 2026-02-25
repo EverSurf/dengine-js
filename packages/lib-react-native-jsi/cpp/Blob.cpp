@@ -7,7 +7,7 @@
 
 using namespace facebook;
 
-namespace tonlabs
+namespace eversurf
 {
   Blob Blob::fromDynamic(const folly::dynamic &value)
   {
@@ -36,4 +36,4 @@ namespace tonlabs
                            jsi::Value(this->size));
   }
 
-} // namespace tonlabs
+} // namespace
